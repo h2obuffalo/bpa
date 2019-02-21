@@ -1,0 +1,30 @@
+/*
+ Theme Name:   Simple Life child
+ Theme URI:    http://example.com/simple-life-child
+ Description:  Simple life theme child
+ Author:       Aran
+ Author URI:   http://example.com
+ Template:     simple-life
+ Version:      1.0.0
+ Text Domain:  simple-life
+/**/
+
+.main-navigation  {
+    background-color: #8A88AF;
+    margin: 0 auto;
+    width: 100%;
+}
+.mean-bar {
+    background-color: #8A88AF !important;
+}
+.site-footer {
+    background-color:  #8A88AF !important;
+}
+.main-navigation a:hover{
+background-color: #9f5afd;
+}
+.main-navigation ul {
+display: flex;
+justify-content: space-between;
+text-align: center;
+}
