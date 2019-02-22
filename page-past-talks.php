@@ -2,45 +2,62 @@
 
 <?php
 get_header(); ?>
+<?php
 
-  <div id="primary" <?php echo simple_life_content_class( 'content-area' ); ?>>
-    <main id="main" class="site-main" role="main">
+$args = array(
+  'post_type' => 'talk',
 
-      <?php while ( have_posts() ) : the_post(); ?>
+);
 
-        <?php get_template_part( 'content', 'page' ); ?>
+$result = new WP_Query($args);
 
-      <?php
+if($result->have_posts() ) {
+  $test = false;
+  while ( $result->have_posts() ) : $result->the_post();
+    ?>
+    <?php
+    if (get_field('date') <= current_time('Ymd') ){  ?>
+      <?php $test = true; ?>
+      <div class="talk_details_box" >
 
-        $args = array(
-        'post_status' => array('posts'),
-        'post_type' => 'talk',
-        );
-
-        $result = new WP_Query($args);
-
-         if($result->have_posts() ) {
-
-        while ( $result->have_posts() ) : $result->the_post();
-          ?>
-         <h1><?php the_title(); ?></h1>
-
-        <div>
-          <?php the_content(); ?>
-        </div>
-
-
-      <?php endwhile;
-      wp_reset_query();
-       } else {
-          echo "there is no posts";
-        }
+        <h1>
+          <?php the_title(); ?>
+        </h1>
+        <?php
+        $dmy = date("d-m-Y", strtotime(get_field('date')));
+        ?>
+        <h1 class="talk_date">
+          <?php echo $dmy ;?>
+        </h1>
+        <?php if (get_field('image')) { ?>
+        <img class="speaker_img" src="<?php the_field('image') ;?>" />
+        <?php }?>
+        <?php if (get_field('subject')){ ?>
+        <p>
+          <?php the_field('subject'); ?>
+        </p>
+        <?php } ?>
+        <?php if (get_field('burb')){ ?>
+        <p>
+          <?php the_field('blurb'); ?>
+        </p>
+        <?php } ?>
+      </div>
+    <?php } ?>
+  <?php endwhile;
+  if ($test == false) {
+    echo "no posts found";
+  }
+  wp_reset_query();
+} else {
+  echo "there is no posts";
+}
 ?>
 
-      <?php endwhile; ?>
 
-    </main><!-- #main -->
-  </div><!-- #primary -->
+
+</main><!-- #main -->
+</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

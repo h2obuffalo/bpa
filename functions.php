@@ -44,6 +44,17 @@ function create_custom_post_talk(){
 
 add_action('init','create_custom_post_talk'); // define talk custom post type
 
+function custom_unixtimesamp ( $post_id ) {
+    if ( get_post_type( $post_id ) == 'talk' ) {
+    $enddate = get_post_meta($post_id, 'date', true);
 
+        if($enddate) {
+            $dateparts = explode('/', $enddate);
+            $newdate1 = strtotime(date('d.m.Y H:i:s', strtotime($dateparts[1].'/'.$dateparts[0].'/'.$dateparts[2])));
+            update_post_meta($post_id, 'unixstartdate', $newdate1  );
+        }
+    }
+}
+add_action( 'save_post', 'custom_unixtimesamp', 100, 2);
 
 

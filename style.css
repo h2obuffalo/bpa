@@ -11,20 +11,73 @@
 
 .main-navigation  {
     background-color: #8A88AF;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     width: 100%;
+    overflow: auto;
 }
 .mean-bar {
     background-color: #8A88AF !important;
+
 }
 .site-footer {
     background-color:  #8A88AF !important;
 }
+.main-navigation li {
+     float: left;
+  padding: 2px;
+  text-decoration: none;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  border: black solid 1px;
+}
+a, a:visited, a:hover, a:focus, a:active {
+text-decoration: none ;
+outline: none;
+}
+
+
 .main-navigation a:hover{
 background-color: #9f5afd;
+border: black solid 2px;
+text-decoration: none;
+}
+
+body {
+  background-color: #8A88AF;
 }
 .main-navigation ul {
+  width: 100%;
 display: flex;
 justify-content: space-between;
 text-align: center;
+}
+.talk_details_box {
+  width: 99%;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #8h8e9f;
+  border-style: solid;
+  border-color: white;
+  border-radius: 1%;
+  color: purple;
+  /*text-align: justify;*/
+  text-overflow: auto;
+  text-align: left;
+  margin-bottom: 2%;
+}
+.talk_details_box h1 {
+  color: blue;
+  padding-left: 2%;
+  text-align: center;
+}
+.talk_details_box img{
+float: left;
+padding:5% 5%;
+width: 30%;
+}
+.talk_details_words {
+  width: 50%;
+  padding: 4% 4%;
+  float: left;
 }
