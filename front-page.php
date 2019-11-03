@@ -1,20 +1,30 @@
-<?php /* Template Name: upcoming-talks */ ?>
-
 <?php
+/**
+ * The template for displaying all pages.
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site will use a
+ * different template.
+ *
+ * @package Simple_Life
+ */
+
 get_header(); ?>
 
-<!-- <div id="primary" <?php echo simple_life_content_class( 'content-area' ); ?>>
-	<main id="main" class="site-main" role="main"> -->
-		<?php
+	<div id="primary" <?php echo simple_life_content_class( 'content-area' ); ?>>
+		<main id="main" class="site-main" role="main">
+
+
+
+			<?php
 
 		$args = array(
 			'post_type' => 'talk',
-			'meta_key' => 'talk_date',
-            'orderby' => 'meta_value',
-            'order' => 'DESC'
-            
-			// 'post_limits' => 1,
-			// 'posts_per_page' => 1,
+			'orderby' => 'date',
+			'order'	=> 'ASC',
+			'post_limits' => 1,
+			'posts_per_page' => 1,
 
 		);
 
@@ -26,37 +36,23 @@ get_header(); ?>
 
 				if (get_field('date') >= current_time('Ymd') ){  ?>
 					<?php $test =true; ?>
-					<div class="talk_details_box" >
-							<?php if (get_field('talk_title')){ ?>
-								<h2>
-									<?php the_field('talk_title'); ?>
-								</h2>
-							<?php } ?>
-							<?php if (get_field('subtitle')){ ?>
-								<h3>
-									<?php the_field('subtitle'); ?>
-								</h3>
-							<?php } ?>
+					<div class="next_talk_box" >
+						<h2><?php the_field('subject'); ?></h2>
 						<?php
 						//Convert it to DD-MM-YYYY
-						$dmy = date("jS F  Y", strtotime(get_field('talk_date')));
+						$dmy = date("jS F  Y", strtotime(get_field('date')));
 						?>
 						<h4 class="talk_date">
-							<?php echo "Monday  $dmy"; ?>
+							<?php echo "The next talk is on the  $dmy"; ?>
 						</h4>
 						<?php if (get_field('image')) { ?>
 							<img class="speaker_img" src="<?php the_field('image') ;?>" />
 						<?php }?>
-						<div class="talk_words_box">
+						<div class="next_talk_words_box">
 							<?php if (get_field('speaker_name')){ ?>
 								<h4>
 									<?php the_field('speaker_name'); ?>
 								</h4>
-							<?php } ?>
-							<?php if (get_field('speaker_bio')){ ?>
-							    <p class="talk_blurb">
-									<?php the_field('speaker_bio'); ?>
-								</p>
 							<?php } ?>
 							<?php if (get_field('blurb')){ ?>
 								<p class="talk_blurb">
@@ -73,16 +69,22 @@ get_header(); ?>
 				<?php
 
 				?>
+
 			<?php endwhile;
 		} else {
 			echo "there is no posts";
 		}
 		?>
+		<?php while ( have_posts() ) : the_post(); ?>
+
+				<?php get_template_part( 'content', 'page' ); ?>
 
 
 
-	</main><!-- #main -->
-</div><!-- #primary -->
+			<?php endwhile; ?>
+
+		</main><!-- #main -->
+	</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

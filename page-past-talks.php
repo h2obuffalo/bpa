@@ -5,7 +5,10 @@ get_header(); ?>
 <?php
 
 $args = array(
-  'post_type' => 'talk',
+'post_type' => 'talk',
+'meta_key' => 'talk_date',
+'orderby' => 'meta_value',
+'order' => 'DESC'
 
 );
 
@@ -19,38 +22,40 @@ if($result->have_posts() ) {
     if (get_field('date') <= current_time('Ymd') ){  ?>
       <?php $test = true; ?>
       <div class="talk_details_box" >
-
-        <h1>
+        <h2>
           <?php the_title(); ?>
-        </h1>
+        </h2>
         <?php
-        $dmy = date("d-m-Y", strtotime(get_field('date')));
+        $dmy = date("jS F  Y", strtotime(get_field('date')));
         ?>
-        <h1 class="talk_date">
-          <?php echo $dmy ;?>
-        </h1>
+        <h4 class="talk_date">
+          <?php echo "$dmy"; ?>
+        </h4>
         <?php if (get_field('image')) { ?>
-        <img class="speaker_img" src="<?php the_field('image') ;?>" />
+          <img class="speaker_img" src="<?php the_field('image') ;?>" />
         <?php }?>
-        <?php if (get_field('subject')){ ?>
-        <p>
-          <?php the_field('subject'); ?>
-        </p>
+        <div class="talk_words_box">
+         <?php if (get_field('speaker_name')){ ?>
+          <h4>
+            <?php the_field('speaker_name'); ?>
+          </h4>
         <?php } ?>
-        <?php if (get_field('burb')){ ?>
-        <p>
+
+      <?php if (get_field('blurb')){ ?>
+        <p class="talk_blurb">
           <?php the_field('blurb'); ?>
         </p>
-        <?php } ?>
-      </div>
-    <?php } ?>
-  <?php endwhile;
-  if ($test == false) {
-    echo "no posts found";
-  }
-  wp_reset_query();
+      <?php } ?>
+        </div>
+  </div>
+  <?php } if ($test == false) {
+  echo "no posts found";
+}?>
+<?php endwhile;
+
+wp_reset_query();
 } else {
-  echo "there is no posts";
+  echo "There are currently no talks to show you";
 }
 ?>
 

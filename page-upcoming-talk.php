@@ -6,6 +6,7 @@
         $args = array(
         'post_status' => array('future'),
         'post_type' => 'talks',
+        
         );
 
         $result = new WP_Query($args);
